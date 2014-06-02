@@ -1,61 +1,63 @@
-# -*- coding: utf-8 -*-
 """
 Created on Sat May 31 18:50:41 2014
 
-@author: LAGosaurusRex
+@author: TheRussEquilibrium
 """
 import random
 import pickle
 import operator
 
-TicTacToe = [[0]*3 for i in range(3)]
+TicTacToe = [['-']*3 for i in range(3)]
 squares = [[0,0],[0,1],[0,2],[1,0],[1,1],[1,2],[2,0],[2,1],[2,2]]
 currentBoard = {1:1,2:1,3:1,4:1,5:1,6:1,7:1,8:1,9:1}
 lookup = {(0,0):1,(0,1):2,(0,2):3,(1,0):4,(1,1):5,(1,2):6,(2,0):7,(2,1):8,(2,2):9}
+reverselookup = {1:[0,0],2:[0,1],3:[0,2],4:[1,0],5:[1,1],6:[1,2],7:[2,0],8:[2,1],9:[2,2]}
 #Q = {111111111:0}
 #pickle.dump(Q,open("save.p","wb"))
 Q = pickle.load(open("save.p","rb"))
 gamma = .8
 
-
-def PrintBoard(currentBoard):
-    board = []
-    for key, value in currentBoard.iteritems():
-        board.append(value)
-    print board[0],board[1],board[2]
-    print board[3],board[4],board[5]
-    print board[6],board[7],board[8]        
+def PrintBoard():
+    for row in TicTacToe:
+        print row
 
 def CompOneMove():
     x = random.choice(squares)
     squares.remove(x)
-    TicTacToe[x[0]][x[1]] = "X"
     currentBoard[lookup[(x[0],x[1])]] = 3
 
 def CompTwoMove():
     o = random.choice(squares)
     squares.remove(o)
-    TicTacToe[o[0]][o[1]] = "O"
     currentBoard[lookup[(o[0],o[1])]] = 2
     
-def CompMove():
-    x = input("Comp make a move: ")
+def CompMove(bestMove):
+    y = None
+    bestMove = bestMove
+    board = 'a'
+    for key,value in currentBoard.iteritems():
+        board = board + str(value)
+    board = board[1:]
+    for i in xrange(len(board)):
+        if board[i] != bestMove[i]:
+            y = i
+    x = reverselookup[y+1]
     squares.remove(x)
     TicTacToe[x[0]][x[1]] = "X"
     currentBoard[lookup[(x[0],x[1])]] = 3
 
 def PlayerMove():
-    o = input("Player make a move: ")
+    o = reverselookup[input("Player make a move: ")]
     squares.remove(o)
     TicTacToe[o[0]][o[1]] = "O"
     currentBoard[lookup[(o[0],o[1])]] = 2
 
 def startGame():
     global squares, currentBoard
+    PrintBoard()
     squares = [[0,0],[0,1],[0,2],[1,0],[1,1],[1,2],[2,0],[2,1],[2,2]]
     currentBoard = {1:1,2:1,3:1,4:1,5:1,6:1,7:1,8:1,9:1}
     gameContinue = True
-    PrintBoard(currentBoard)
     print ""
     while(gameContinue) and (len(squares) > 1):
         status = win(currentBoard)
@@ -66,15 +68,15 @@ def startGame():
         print bestMove[0],bestMove[1],bestMove[2]
         print bestMove[3],bestMove[4],bestMove[5]
         print bestMove[6],bestMove[7],bestMove[8]
-        CompMove()
-        PrintBoard(currentBoard)
+        CompMove(bestMove)
+        PrintBoard()
         print ""
         status = win(currentBoard)
         if(status == 1) or (status == 0):
             gameContinue = False
             break
         PlayerMove()
-        PrintBoard(currentBoard)
+        PrintBoard()
         print ""
         status = win(currentBoard)
         if(status == 1) or (status == 0):
