@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Created on Sat May 31 18:50:41 2014
 
@@ -6,16 +7,20 @@ Created on Sat May 31 18:50:41 2014
 import random
 import pickle
 import operator
+import os.path
 
 TicTacToe = [['-']*3 for i in range(3)]
 squares = [[0,0],[0,1],[0,2],[1,0],[1,1],[1,2],[2,0],[2,1],[2,2]]
 currentBoard = {1:1,2:1,3:1,4:1,5:1,6:1,7:1,8:1,9:1}
 lookup = {(0,0):1,(0,1):2,(0,2):3,(1,0):4,(1,1):5,(1,2):6,(2,0):7,(2,1):8,(2,2):9}
 reverselookup = {1:[0,0],2:[0,1],3:[0,2],4:[1,0],5:[1,1],6:[1,2],7:[2,0],8:[2,1],9:[2,2]}
-#Q = {111111111:0}
-#pickle.dump(Q,open("save.p","wb"))
-Q = pickle.load(open("save.p","rb"))
 gamma = .8
+
+if os.path.isfile("save.p"):
+    Q = pickle.load(open("save.p","rb"))
+else:
+    Q = {111111111:0}
+    pickle.dump(Q,open("save.p","wb"))
 
 def PrintBoard():
     for row in TicTacToe:
@@ -54,7 +59,6 @@ def PlayerMove():
 
 def startGame():
     global squares, currentBoard
-    PrintBoard()
     squares = [[0,0],[0,1],[0,2],[1,0],[1,1],[1,2],[2,0],[2,1],[2,2]]
     currentBoard = {1:1,2:1,3:1,4:1,5:1,6:1,7:1,8:1,9:1}
     gameContinue = True
@@ -65,9 +69,11 @@ def startGame():
             gameContinue = False
             break
         bestMove = str(LegalMoves())
-        print bestMove[0],bestMove[1],bestMove[2]
-        print bestMove[3],bestMove[4],bestMove[5]
-        print bestMove[6],bestMove[7],bestMove[8]
+        '''This commented out part will print out what the computer believes to
+           be the best move given the current board.'''
+#        print bestMove[0],bestMove[1],bestMove[2]
+#        print bestMove[3],bestMove[4],bestMove[5]
+#        print bestMove[6],bestMove[7],bestMove[8]
         CompMove(bestMove)
         PrintBoard()
         print ""
@@ -94,8 +100,10 @@ def LegalMoves():
             legalMoves.append(int("".join(s)))
     for move in legalMoves:
         legalMovesValue[move] = Q[move]
-    for key,value in legalMovesValue.iteritems():
-        print key, value
+    '''The commented part below will print out the possible moves in the 
+       given position along with a value tied to that move.'''
+#    for key,value in legalMovesValue.iteritems():
+#        print key, value
     return max(legalMovesValue.iteritems(), key=operator.itemgetter(1))[0]
 
 def startLearning():
@@ -179,5 +187,6 @@ def main():
     for i in xrange(5000):
         startLearning()
     pickle.dump(Q,open("save.p","wb"))
+    print("When asked for a move it expects an input, an integer 1-9. The board is labeled left to right, 1-9")
     startGame()       
 main()
