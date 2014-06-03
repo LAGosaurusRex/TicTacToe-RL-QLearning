@@ -149,38 +149,38 @@ def newQValue(currentBoard):
     return values
     
 def win(currentBoard):
-    if(currentBoard[1] == currentBoard[2]) and (currentBoard[1] == currentBoard[3]) and (currentBoard[1] == 3):
+    if(currentBoard[1] == currentBoard[2] == currentBoard[3] == 3):
         return 1
-    if(currentBoard[4] == currentBoard[5]) and (currentBoard[4] == currentBoard[6]) and (currentBoard[4] == 3):
+    if(currentBoard[4] == currentBoard[5] == currentBoard[6] == 3):
         return 1
-    if(currentBoard[7] == currentBoard[8]) and (currentBoard[7] == currentBoard[9]) and (currentBoard[7] == 3):
+    if(currentBoard[7] == currentBoard[8] == currentBoard[9] == 3):
         return 1
-    if(currentBoard[1] == currentBoard[4]) and (currentBoard[1] == currentBoard[7]) and (currentBoard[1] == 3):
+    if(currentBoard[1] == currentBoard[4] == currentBoard[7] == 3):
         return 1
-    if(currentBoard[2] == currentBoard[5]) and (currentBoard[2] == currentBoard[8]) and (currentBoard[2] == 3):
+    if(currentBoard[2] == currentBoard[5] == currentBoard[8] == 3):
         return 1
-    if(currentBoard[3] == currentBoard[6]) and (currentBoard[3] == currentBoard[9]) and (currentBoard[3] == 3):
+    if(currentBoard[3] == currentBoard[6] == currentBoard[9] == 3):
         return 1
-    if(currentBoard[1] == currentBoard[5]) and (currentBoard[1] == currentBoard[9]) and (currentBoard[1] == 3):
+    if(currentBoard[1] == currentBoard[5] == currentBoard[9] == 3):
         return 1
-    if(currentBoard[3] == currentBoard[5]) and (currentBoard[3] == currentBoard[7]) and (currentBoard[3] == 3):
+    if(currentBoard[3] == currentBoard[5] == currentBoard[7] == 3):
         return 1
         
-    if(currentBoard[1] == currentBoard[2]) and (currentBoard[1] == currentBoard[3]) and (currentBoard[1] == 2):
+    if(currentBoard[1] == currentBoard[2] == currentBoard[3] == 2):
         return 0
-    if(currentBoard[4] == currentBoard[5]) and (currentBoard[4] == currentBoard[6]) and (currentBoard[4] == 2):
+    if(currentBoard[4] == currentBoard[5] == currentBoard[6] == 2):
         return 0
-    if(currentBoard[7] == currentBoard[8]) and (currentBoard[7] == currentBoard[9]) and (currentBoard[7] == 2):
+    if(currentBoard[7] == currentBoard[8] == currentBoard[9] == 2):
         return 0
-    if(currentBoard[1] == currentBoard[4]) and (currentBoard[1] == currentBoard[7]) and (currentBoard[1] == 2):
+    if(currentBoard[1] == currentBoard[4] == currentBoard[7] == 2):
         return 0
-    if(currentBoard[2] == currentBoard[5]) and (currentBoard[2] == currentBoard[8]) and (currentBoard[2] == 2):
+    if(currentBoard[2] == currentBoard[5] == currentBoard[8] == 2):
         return 0
-    if(currentBoard[3] == currentBoard[6]) and (currentBoard[3] == currentBoard[9]) and (currentBoard[3] == 2):
+    if(currentBoard[3] == currentBoard[6] == currentBoard[9] == 2):
         return 0
-    if(currentBoard[1] == currentBoard[5]) and (currentBoard[1] == currentBoard[9]) and (currentBoard[1] == 2):
+    if(currentBoard[1] == currentBoard[5] == currentBoard[9] == 2):
         return 0
-    if(currentBoard[3] == currentBoard[5]) and (currentBoard[3] == currentBoard[7]) and (currentBoard[3] == 2):
+    if(currentBoard[3] == currentBoard[5] == currentBoard[7] == 2):
         return 0
 
 def main():
