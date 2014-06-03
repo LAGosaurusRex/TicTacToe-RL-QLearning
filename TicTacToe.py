@@ -4,7 +4,7 @@ Created on Sat May 31 18:50:41 2014
 
 @author: TheRussEquilibrium a.k.a LAGosaurus.Rex
 """
-"""
+
 import random
 import pickle
 import operator
