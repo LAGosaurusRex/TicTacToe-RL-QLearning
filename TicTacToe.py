@@ -203,11 +203,19 @@ def startLearning():
 
     if Didwin == 1:
         for value in all_values:
-            Q_Update = reward(value,1)
+            Q_Update = reward(value,2)
             Q[value] = Q_Update
+        #This allows the algorithm to quickly learn from moves that lead
+        #to a loss on the next opponent move.
+        #I feel like I should be able to do some sort of depth search
+        #Which looks forward like a chess algorithm and can help set
+        #move evaluations.            
+            all_values.reverse()
+            Q_Update = reward(all_values[1],10000)
+            Q[all_values[1]] = Q_Update
     if Didwin == 0:
         for value in all_values:
-            Q_Update = reward(value,-1)
+            Q_Update = reward(value,-2)
             Q[value] = Q_Update
         #This allows the algorithm to quickly learn from moves that lead
         #to a loss on the next opponent move.
@@ -280,7 +288,7 @@ def win(currentBoard):
 def main():
     global TicTacToe
     #maybe it's best to be the loop in the startLearning() function?
-    for i in xrange(5000):
+    for i in xrange(15000):
         startLearning()
     #after it runs the learning iterations it saves a new updated value of
     #the Q dict to your computer
