@@ -181,7 +181,7 @@ def startLearning():
        played updates the values in the Q dictionary. Enough games need to be 
        played to allow each new position to be put into the dictionary; if you 
        don't do this and play the computer it will throw an error because the 
-       position aren't in the dictionary. I could just initialize the dictionary
+       position isn't in the dictionary. I could just initialize the dictionary
        with all possible positions, but, you need the algorithm to run and learn
        anyways so I don't see the necessity.'''
     global squares, currentBoard
@@ -287,7 +287,7 @@ def win(currentBoard):
 
 def main():
     global TicTacToe
-    #maybe it's best to be the loop in the startLearning() function?
+    #maybe it's best to put the loop in the startLearning() function?
     for i in xrange(15000):
         startLearning()
     #after it runs the learning iterations it saves a new updated value of
