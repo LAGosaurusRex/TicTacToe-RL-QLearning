@@ -107,7 +107,6 @@ def startGame():
             gameContinue = False
             return 0
         PlayerMove("O")
-        PrintBoard()
         status = win(currentBoard)
         if(status == 0):
             print("Oh, this can't be right. You won? Are you hacking my program? Don't you feel cool, hacking to win Tic-Tac-Toe.")
@@ -121,7 +120,7 @@ def startGame2():
     currentBoard = {1:1,2:1,3:1,4:1,5:1,6:1,7:1,8:1,9:1}
     gameContinue = True
     PrintBoard()
-    while(gameContinue) and (len(squares) > 1):
+    while(gameContinue) and (len(squares) >= 1):
         print ""
         PlayerMove("X")
         PrintBoard()
@@ -189,12 +188,12 @@ def startLearning():
     currentBoard = {1:1,2:1,3:1,4:1,5:1,6:1,7:1,8:1,9:1}
     Didwin = None
     all_values = []
-    while(len(squares) > 1) and (Didwin == None):
+    while(len(squares) >= 1) and (Didwin == None):
         CompOneMove()
         values = newQValue(currentBoard)
         all_values.append(values)
         Didwin = win(currentBoard)
-        if Didwin:
+        if Didwin or len(squares) == 0:
             break
         CompTwoMove()
         values = newQValue(currentBoard)
@@ -203,7 +202,7 @@ def startLearning():
 
     if Didwin == 1:
         for value in all_values:
-            Q_Update = reward(value,2)
+            Q_Update = reward(value,50)
             Q[value] = Q_Update
         #This allows the algorithm to quickly learn from moves that lead
         #to a loss on the next opponent move.
@@ -215,7 +214,7 @@ def startLearning():
             Q[all_values[1]] = Q_Update
     if Didwin == 0:
         for value in all_values:
-            Q_Update = reward(value,-2)
+            Q_Update = reward(value,-50)
             Q[value] = Q_Update
         #This allows the algorithm to quickly learn from moves that lead
         #to a loss on the next opponent move.
@@ -287,8 +286,8 @@ def win(currentBoard):
 
 def main():
     global TicTacToe
-    #maybe it's best to put the loop in the startLearning() function?
-    for i in xrange(15000):
+    #maybe it's best to be the loop in the startLearning() function?
+    for i in xrange(50000):
         startLearning()
     #after it runs the learning iterations it saves a new updated value of
     #the Q dict to your computer
