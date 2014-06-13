@@ -1,1 +1,12 @@
-TicTacToe-RL-QLearning
+TicTacToe-A.I
+
+I came across this video on YouTube https://www.youtube.com/watch?v=iNL5-0_T1D0&list=FLXdh4j78j0V2jrBnfR664Zg&index=3, and it intrigued me because in this 5 minute video every assumption I had about how intelligence/knowledge is gained, how humans develop from infancy, how evolution continues to happen, all of those assumptions seemed to be confirmed.
+
+My assumption was that in each of those instances I stated, that 'progress' was made sheerly by random sampling. Which, to me seems to lay to rest arguments regarding priori/posteriori knowledge, but that's another topic.
+
+So, without any prior knowledge in Artificial Intelligence, I decided that I'd attempt to write a program that learns how to play Tic-Tac-Toe through random sampling. Well, I succeeded in doing just that.
+
+It should be noted, that after it 'learns' enough it's nearly impossible to beat. I say nearly because it goes a bit retarded at times. (To be clear, when I say impossible to beat, I don't mean that it's going to win, I just mean it won't lose. If you know anything about how to play Tic-Tac-Toe you should never lose, all games should be a draw.) I suspect this happens because for all of its 'learning' I used random sampling, and I don't think that mimics how actual learning would take place. Yes, I think random sampling is key in the beginning, but once you start laying a foundation you get an idea of what choices are good and bad and you start refining your decisions.
+
+My intention is to rewrite this, my first attempt, though it seems to work decently well, is ugly and it feels sloppy to me. It also doesn't "learn" when it plays against a human and I want to change that. I also want to change that it only uses random sampling and doesn't use what it's "learned" in real-time.
+
