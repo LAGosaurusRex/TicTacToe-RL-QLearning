@@ -168,8 +168,8 @@ def LegalMoves(x):
         legalMovesValue[move] = Q[move]
     '''The commented part below will print out the possible moves in the 
        given position along with a value tied to that move.'''
-    for key,value in legalMovesValue.iteritems():
-        print key, value
+##    for key,value in legalMovesValue.iteritems():
+##        print key, value
     # returns the best move by returning the max or min key depending on if "X" or "O" 
     if x == "X":
         return max(legalMovesValue.iteritems(), key=operator.itemgetter(1))[0]
@@ -209,8 +209,11 @@ def startLearning():
         #to a loss on the next opponent move.
         #I feel like I should be able to do some sort of depth search
         #Which looks forward like a chess algorithm and can help set
-        #move evaluations.            
-            Q[all_values[1]] = Q_Update
+        #move evaluations.
+        Q_Update = reward(all_values[-2],100000)
+        Q[all_values[-2]] = Q_Update
+        Q_Update = reward(all_values[-4], 2)
+        Q[all_values[-4]] = Q_Update
     if Didwin == 0:
         for value in all_values:
             Q_Update = reward(value,-1)
@@ -220,7 +223,10 @@ def startLearning():
         #I feel like I should be able to do some sort of depth search
         #Which looks forward like a chess algorithm and can help set
         #move evaluations.
-        Q[all_values[1]] = Q_Update
+        Q_Update = reward(all_values[-2],-100000)
+        Q[all_values[-2]] = Q_Update
+        Q_Update = reward(all_values[-4], -2)
+        Q[all_values[-4]] = Q_Update
     else:
         for value in all_values:
             Q_Update = reward(value,0)
