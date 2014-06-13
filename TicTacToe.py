@@ -123,7 +123,8 @@ def startGame2():
     while(gameContinue) and (len(squares) >= 1):
         print ""
         PlayerMove("X")
-        PrintBoard()
+        if len(squares) == 0:
+            break
         print ""
         status = win(currentBoard)
         if(status == 1):
@@ -167,8 +168,8 @@ def LegalMoves(x):
         legalMovesValue[move] = Q[move]
     '''The commented part below will print out the possible moves in the 
        given position along with a value tied to that move.'''
-#    for key,value in legalMovesValue.iteritems():
-#        print key, value
+    for key,value in legalMovesValue.iteritems():
+        print key, value
     # returns the best move by returning the max or min key depending on if "X" or "O" 
     if x == "X":
         return max(legalMovesValue.iteritems(), key=operator.itemgetter(1))[0]
@@ -202,27 +203,23 @@ def startLearning():
 
     if Didwin == 1:
         for value in all_values:
-            Q_Update = reward(value,50)
+            Q_Update = reward(value,1)
             Q[value] = Q_Update
         #This allows the algorithm to quickly learn from moves that lead
         #to a loss on the next opponent move.
         #I feel like I should be able to do some sort of depth search
         #Which looks forward like a chess algorithm and can help set
         #move evaluations.            
-            all_values.reverse()
-            Q_Update = reward(all_values[1],10000)
             Q[all_values[1]] = Q_Update
     if Didwin == 0:
         for value in all_values:
-            Q_Update = reward(value,-50)
+            Q_Update = reward(value,-1)
             Q[value] = Q_Update
         #This allows the algorithm to quickly learn from moves that lead
         #to a loss on the next opponent move.
         #I feel like I should be able to do some sort of depth search
         #Which looks forward like a chess algorithm and can help set
         #move evaluations.
-        all_values.reverse()
-        Q_Update = reward(all_values[1],-10000)
         Q[all_values[1]] = Q_Update
     else:
         for value in all_values:
@@ -287,13 +284,16 @@ def win(currentBoard):
 def main():
     global TicTacToe
     #maybe it's best to be the loop in the startLearning() function?
-    for i in xrange(50000):
+    for i in xrange(100000):
         startLearning()
     #after it runs the learning iterations it saves a new updated value of
     #the Q dict to your computer
     pickle.dump(Q,open("save.p","wb"))
     print("When asked for a move it expects an input, an integer 1-9. The board is labeled left to right, 1-9")
-    startGame()
-    TicTacToe = [['-']*3 for i in range(3)]
-    startGame2()
+    print("Press ctrl-c to exit the game.")
+    while True:
+        TicTacToe = [['-']*3 for i in range(3)]
+        startGame()
+        TicTacToe = [['-']*3 for i in range(3)]
+        startGame2()
 main()
